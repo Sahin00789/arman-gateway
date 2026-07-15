@@ -86,17 +86,18 @@ export default function Gateway() {
         className="w-[90%] max-w-5xl mt-6 px-6 py-4 flex items-center justify-between bg-white/70 backdrop-blur-xl border border-white rounded-full shadow-sm z-50"
       >
         <div className="flex items-center gap-3">
-          {/* Custom Logo Integration */}
-          <div className="relative w-10 h-10 flex-shrink-0">
+          {/* Custom Logo Integration - Wide Logo */}
+          <div className="relative h-10 flex items-center">
             <Image 
               src="/Applogo.png" 
               alt="Arman Logical Systems Logo" 
-              fill
+              width={140} // Adjust this number to make it wider or narrower
+              height={40} // Keeps the height consistent with the nav
               className="object-contain"
-              sizes="40px"
               priority
             />
           </div>
+
           <span className="text-xl font-bold tracking-tight text-slate-800">
             Arman Logical Systems
           </span>
