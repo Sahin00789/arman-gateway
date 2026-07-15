@@ -1,9 +1,10 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 import { Plus_Jakarta_Sans } from "next/font/google";
 import { GraduationCap, Utensils, Stethoscope, Store, ArrowRight } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 
 // Typography
 const jakarta = Plus_Jakarta_Sans({ 
@@ -55,8 +56,8 @@ const apps = [
   }
 ];
 
-// Animation Variants
-const staggerContainer = {
+// Animation Variants - Explicitly typed to fix the build error
+const staggerContainer: Variants = {
   hidden: { opacity: 0 },
   show: {
     opacity: 1,
@@ -64,7 +65,7 @@ const staggerContainer = {
   }
 };
 
-const fadeUp = {
+const fadeUp: Variants = {
   hidden: { opacity: 0, y: 40 },
   show: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 80, damping: 15 } }
 };
@@ -85,8 +86,16 @@ export default function Gateway() {
         className="w-[90%] max-w-5xl mt-6 px-6 py-4 flex items-center justify-between bg-white/70 backdrop-blur-xl border border-white rounded-full shadow-sm z-50"
       >
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-full bg-gradient-to-br from-brand-blue to-brand-cyan flex items-center justify-center text-white font-bold text-xl shadow-md">
-            A
+          {/* Custom Logo Integration */}
+          <div className="relative w-10 h-10 flex-shrink-0">
+            <Image 
+              src="/Applogo.png" 
+              alt="Arman Logical Systems Logo" 
+              fill
+              className="object-contain"
+              sizes="40px"
+              priority
+            />
           </div>
           <span className="text-xl font-bold tracking-tight text-slate-800">
             Arman Logical Systems
@@ -129,10 +138,8 @@ export default function Gateway() {
                 whileTap={{ scale: 0.98 }}
                 className={`group relative bg-white/80 backdrop-blur-lg rounded-[2rem] p-8 shadow-sm hover:shadow-2xl transition-all duration-300 border border-slate-100 ${app.borderHover} overflow-hidden cursor-pointer h-full flex flex-col`}
               >
-                {/* Dynamic Gradient Background on Hover */}
                 <div className={`absolute inset-0 bg-gradient-to-br ${app.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none`}></div>
 
-                {/* Card Header (Icon & Title) */}
                 <div className="relative z-10 flex items-start justify-between mb-6">
                   <div className="w-16 h-16 rounded-2xl bg-white shadow-sm border border-slate-50 flex items-center justify-center group-hover:scale-110 transition-transform duration-500">
                     {app.icon}
@@ -142,7 +149,6 @@ export default function Gateway() {
                   </div>
                 </div>
 
-                {/* Card Body */}
                 <div className="relative z-10 mb-6">
                   <h2 className="text-3xl font-bold text-slate-800 tracking-tight mb-2">
                     {app.title}
@@ -152,7 +158,6 @@ export default function Gateway() {
                   </p>
                 </div>
 
-                {/* Features List */}
                 <ul className="relative z-10 space-y-2 mt-auto">
                   {app.features.map((feature, idx) => (
                     <li key={idx} className="flex items-center text-slate-600 font-medium text-sm">
