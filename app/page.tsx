@@ -2,61 +2,65 @@
 
 import { motion, Variants } from "framer-motion";
 import { Plus_Jakarta_Sans } from "next/font/google";
-import { GraduationCap, Utensils, Stethoscope, Store, ArrowRight } from "lucide-react";
+import { GraduationCap, Utensils, Stethoscope, Store, ArrowRight, CheckCircle2 } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 
-// Typography
+// Premium Typography
 const jakarta = Plus_Jakarta_Sans({ 
   subsets: ["latin"], 
   variable: '--font-plus-jakarta' 
 });
 
-// App Data
+// App Ecosystem Data
 const apps = [
   {
     id: "schoolahive",
     title: "Schoolahive",
-    description: "Complete ERP for modern education.",
+    tagline: "Education ERP",
+    description: "Complete management for modern schools.",
     domain: "school.armanlogicalsystems.in",
-    features: ["Exam Results", "Student Attendance", "Academic Ledger"],
-    icon: <GraduationCap size={44} className="text-brand-blue" />,
-    gradient: "from-blue-500/10 via-brand-blue/5 to-transparent",
-    borderHover: "hover:border-brand-blue/50"
+    features: ["Exam Results & Marks", "Student Attendance", "Academic Ledger"],
+    icon: <GraduationCap size={36} className="text-brand-blue" />,
+    hoverColor: "group-hover:from-blue-600 group-hover:to-blue-400",
+    buttonText: "Open Schoolahive"
   },
   {
     id: "dineserve",
     title: "DineServe",
-    description: "Smart management for restaurants.",
+    tagline: "Restaurant OS",
+    description: "Smart management for dining experiences.",
     domain: "dine.armanlogicalsystems.in",
-    features: ["Table QR Ordering", "Captain View", "Kitchen Display"],
-    icon: <Utensils size={44} className="text-brand-cyan" />,
-    gradient: "from-cyan-500/10 via-brand-cyan/5 to-transparent",
-    borderHover: "hover:border-brand-cyan/50"
+    features: ["Table QR Ordering", "Captain & Chef Views", "Kitchen Display"],
+    icon: <Utensils size={36} className="text-brand-cyan" />,
+    hoverColor: "group-hover:from-cyan-500 group-hover:to-cyan-400",
+    buttonText: "Open DineServe"
   },
   {
     id: "clinicmind",
     title: "ClinicMind",
-    description: "Digital infrastructure for healthcare.",
+    tagline: "Healthcare Hub",
+    description: "Digital infrastructure for local clinics.",
     domain: "clinic.armanlogicalsystems.in",
     features: ["Doctor Booking", "Medicine Inventory", "FaceID Geofence"],
-    icon: <Stethoscope size={44} className="text-emerald-500" />,
-    gradient: "from-emerald-500/10 via-emerald-400/5 to-transparent",
-    borderHover: "hover:border-emerald-500/50"
+    icon: <Stethoscope size={36} className="text-emerald-500" />,
+    hoverColor: "group-hover:from-emerald-500 group-hover:to-emerald-400",
+    buttonText: "Open ClinicMind"
   },
   {
     id: "localhub",
     title: "LocalHub",
+    tagline: "Retail & Market",
     description: "Neighborhood retail and marketplace.",
     domain: "shop.armanlogicalsystems.in",
     features: ["Shop Listings", "Live Offers", "Local Updates"],
-    icon: <Store size={44} className="text-orange-500" />,
-    gradient: "from-orange-500/10 via-orange-400/5 to-transparent",
-    borderHover: "hover:border-orange-500/50"
+    icon: <Store size={36} className="text-orange-500" />,
+    hoverColor: "group-hover:from-orange-500 group-hover:to-orange-400",
+    buttonText: "Open LocalHub"
   }
 ];
 
-// Animation Variants - Explicitly typed to fix the build error
+// Strict Type-Safe Animations
 const staggerContainer: Variants = {
   hidden: { opacity: 0 },
   show: {
@@ -66,127 +70,195 @@ const staggerContainer: Variants = {
 };
 
 const fadeUp: Variants = {
-  hidden: { opacity: 0, y: 40 },
-  show: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 80, damping: 15 } }
+  hidden: { opacity: 0, y: 30 },
+  show: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 70, damping: 15 } }
 };
 
 export default function Gateway() {
   return (
-    <main className={`min-h-screen bg-[#F8FAFC] text-slate-900 ${jakarta.variable} font-sans relative flex flex-col items-center overflow-hidden`}>
+    <main className={`min-h-screen bg-slate-50 text-slate-900 ${jakarta.variable} font-sans flex flex-col relative`}>
       
-      {/* --- Ambient Background Glows --- */}
-      <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-brand-blue/20 rounded-full blur-[120px] pointer-events-none"></div>
-      <div className="absolute top-[10%] right-[-10%] w-[40%] h-[40%] bg-brand-cyan/20 rounded-full blur-[100px] pointer-events-none"></div>
+      {/* Background Architectural Grid Pattern */}
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:32px_32px] pointer-events-none"></div>
 
-      {/* --- Floating Navigation --- */}
-      <motion.nav 
-        initial={{ y: -50, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.6, ease: "easeOut" }}
-        className="w-[90%] max-w-5xl mt-6 px-6 py-4 flex items-center justify-between bg-white/70 backdrop-blur-xl border border-white rounded-full shadow-sm z-50"
-      >
-        <div className="flex items-center gap-3">
-          {/* Custom Logo Integration - Wide Logo */}
-          <div className="relative h-10 flex items-center">
-            <Image 
-              src="/Applogo.png" 
-              alt="Arman Logical Systems Logo" 
-              width={140} // Adjust this number to make it wider or narrower
-              height={40} // Keeps the height consistent with the nav
-              className="object-contain"
-              priority
-            />
+      {/* --- Upgraded Full-Width Navigation --- */}
+      <nav className="sticky top-0 z-50 w-full bg-white/85 backdrop-blur-xl border-b border-slate-200 shadow-sm transition-all duration-300">
+        <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+          <div className="flex items-center gap-4 cursor-pointer">
+            {/* Clean, unrestrictive logo container */}
+            <div className="relative h-10 w-10 flex items-center justify-center">
+              <Image 
+                src="/Applogo.png" 
+                alt="Arman Logical Systems Logo" 
+                fill
+                className="object-contain"
+                sizes="40px"
+                priority
+              />
+            </div>
+            <div className="flex flex-col">
+              <span className="text-xl font-extrabold tracking-tight text-slate-900 leading-tight">
+                Arman Logical Systems
+              </span>
+              <span className="text-xs font-semibold tracking-wider text-slate-500 uppercase">
+                Gateway Ecosystem
+              </span>
+            </div>
           </div>
-
-          <span className="text-xl font-bold tracking-tight text-slate-800">
-            Arman Logical Systems
-          </span>
         </div>
-      </motion.nav>
+      </nav>
 
-      {/* --- Hero Section --- */}
-      <section className="relative w-full max-w-5xl mx-auto px-6 pt-24 pb-16 text-center z-10">
+      {/* --- Clean Hero Section --- */}
+      <section className="relative w-full max-w-4xl mx-auto px-6 pt-24 pb-20 text-center z-10 flex-grow">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.2 }}
+          transition={{ duration: 0.7 }}
         >
-          <h1 className="text-5xl md:text-6xl font-extrabold tracking-tight text-slate-900 mb-6">
-            The Operating System <br className="hidden md:block" />
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-50 border border-blue-100 text-brand-blue font-semibold text-sm mb-6">
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-cyan opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-brand-blue"></span>
+            </span>
+            All Systems Operational
+          </div>
+          <h1 className="text-5xl md:text-6xl font-extrabold tracking-tight text-slate-900 mb-6 leading-[1.1]">
+            Select your platform <br className="hidden md:block" />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-blue to-brand-cyan">
-              for Local Communities
+              to access your dashboard.
             </span>
           </h1>
-          <p className="text-lg md:text-xl text-slate-600 max-w-2xl mx-auto font-medium">
-            Select your dedicated platform below to access management tools, public portals, and secure ledgers.
-          </p>
         </motion.div>
       </section>
 
-      {/* --- App Gateway Grid --- */}
-      <section className="w-full max-w-5xl mx-auto px-6 pb-32 z-10 flex-grow">
+      {/* --- Upgraded Premium Cards --- */}
+      <section className="w-full max-w-6xl mx-auto px-6 pb-32 z-10">
         <motion.div 
           variants={staggerContainer}
           initial="hidden"
           animate="show"
-          className="grid grid-cols-1 md:grid-cols-2 gap-6"
+          className="grid grid-cols-1 md:grid-cols-2 gap-8"
         >
           {apps.map((app) => (
             <Link href={`https://${app.domain}`} key={app.id} passHref>
+              {/* Outer Card acts as the animated border */}
               <motion.div 
                 variants={fadeUp}
-                whileHover={{ y: -5, scale: 1.01 }}
+                whileHover={{ y: -6 }}
                 whileTap={{ scale: 0.98 }}
-                className={`group relative bg-white/80 backdrop-blur-lg rounded-[2rem] p-8 shadow-sm hover:shadow-2xl transition-all duration-300 border border-slate-100 ${app.borderHover} overflow-hidden cursor-pointer h-full flex flex-col`}
+                className={`group relative rounded-[2rem] p-[2px] bg-gradient-to-b from-slate-200 to-slate-100 shadow-md hover:shadow-2xl transition-all duration-500 cursor-pointer h-full ${app.hoverColor}`}
               >
-                <div className={`absolute inset-0 bg-gradient-to-br ${app.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none`}></div>
+                {/* Inner Card (White background) */}
+                <div className="relative bg-white rounded-[calc(2rem-2px)] p-8 h-full flex flex-col overflow-hidden">
+                  
+                  {/* Subtle Background Glow inside card */}
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-slate-50 rounded-full blur-3xl group-hover:bg-brand-light transition-colors duration-500"></div>
 
-                <div className="relative z-10 flex items-start justify-between mb-6">
-                  <div className="w-16 h-16 rounded-2xl bg-white shadow-sm border border-slate-50 flex items-center justify-center group-hover:scale-110 transition-transform duration-500">
-                    {app.icon}
+                  <div className="relative z-10 flex items-start justify-between mb-8">
+                    <div className="flex items-center gap-4">
+                      <div className="w-16 h-16 rounded-2xl bg-slate-50 border border-slate-100 flex items-center justify-center group-hover:scale-110 group-hover:rotate-3 transition-transform duration-500">
+                        {app.icon}
+                      </div>
+                      <div>
+                        <h2 className="text-2xl font-bold text-slate-900 tracking-tight">
+                          {app.title}
+                        </h2>
+                        <span className="text-sm font-semibold text-slate-500">
+                          {app.tagline}
+                        </span>
+                      </div>
+                    </div>
                   </div>
-                  <div className="w-10 h-10 rounded-full bg-slate-50 flex items-center justify-center group-hover:bg-slate-900 group-hover:text-white transition-colors duration-300">
-                    <ArrowRight size={20} className="text-slate-400 group-hover:text-white group-hover:-rotate-45 transition-all duration-300" />
-                  </div>
-                </div>
 
-                <div className="relative z-10 mb-6">
-                  <h2 className="text-3xl font-bold text-slate-800 tracking-tight mb-2">
-                    {app.title}
-                  </h2>
-                  <p className="text-slate-500 font-medium">
+                  <p className="relative z-10 text-slate-600 font-medium mb-8">
                     {app.description}
                   </p>
-                </div>
 
-                <ul className="relative z-10 space-y-2 mt-auto">
-                  {app.features.map((feature, idx) => (
-                    <li key={idx} className="flex items-center text-slate-600 font-medium text-sm">
-                      <div className="w-1.5 h-1.5 rounded-full bg-slate-300 group-hover:bg-brand-cyan transition-colors mr-3"></div>
-                      {feature}
-                    </li>
-                  ))}
-                </ul>
+                  <div className="relative z-10 border-t border-slate-100 pt-6 mt-auto">
+                    <ul className="space-y-3 mb-8">
+                      {app.features.map((feature, idx) => (
+                        <li key={idx} className="flex items-center text-slate-700 font-medium text-sm">
+                          <CheckCircle2 size={16} className="text-slate-300 group-hover:text-brand-cyan transition-colors mr-3" />
+                          {feature}
+                        </li>
+                      ))}
+                    </ul>
+
+                    <div className="flex items-center justify-between w-full font-bold text-slate-400 group-hover:text-slate-900 transition-colors duration-300">
+                      {app.buttonText}
+                      <div className="w-10 h-10 rounded-full bg-slate-50 flex items-center justify-center group-hover:bg-slate-900 group-hover:text-white transition-all duration-300">
+                        <ArrowRight size={18} className="transition-transform group-hover:-rotate-45" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </motion.div>
             </Link>
           ))}
         </motion.div>
       </section>
 
-      {/* --- Footer --- */}
-      <footer className="w-full border-t border-slate-200/60 bg-white/50 backdrop-blur-sm py-8 mt-auto z-10">
-        <div className="max-w-5xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-slate-500 font-medium text-sm">
-            © 2026 Arman Logical Systems. All rights reserved.
-          </p>
-          <div className="flex items-center gap-6 text-sm font-semibold text-slate-600">
-            <a href="#" className="hover:text-brand-blue transition-colors">Privacy Policy</a>
-            <a href="#" className="hover:text-brand-blue transition-colors">Terms of Service</a>
-            <a href="#" className="hover:text-brand-blue transition-colors">Contact Support</a>
+      {/* --- Upgraded Enterprise Footer --- */}
+      <footer className="w-full bg-slate-900 border-t border-slate-800 pt-20 pb-10 z-10 mt-auto">
+        <div className="max-w-7xl mx-auto px-6">
+          
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+            {/* Brand Column */}
+            <div className="md:col-span-2">
+              <div className="flex items-center gap-3 mb-6">
+                 {/* Footer Logo - Grayscale */}
+                <div className="relative h-8 w-8 brightness-0 invert opacity-90">
+              <Image 
+                src="/Applogo.png" 
+                alt="Arman Logical Systems Logo" 
+                fill
+                className="object-contain"
+                sizes="40px"
+                priority
+              />
+                </div>
+                <span className="text-2xl font-bold tracking-tight text-white">
+                  Arman Logical Systems
+                </span>
+              </div>
+              <p className="text-slate-400 font-medium max-w-sm">
+                Empowering Indian businesses, schools, and clinics with scalable, localized digital infrastructure.
+              </p>
+            </div>
+
+            {/* Ecosystem Column */}
+            <div>
+              <h3 className="text-white font-bold mb-6 tracking-wide">Ecosystem</h3>
+              <ul className="space-y-4 text-sm font-medium text-slate-400">
+                <li><Link href="https://school.armanlogicalsystems.in" className="hover:text-brand-cyan transition-colors">Schoolahive ERP</Link></li>
+                <li><Link href="https://dine.armanlogicalsystems.in" className="hover:text-brand-cyan transition-colors">DineServe POS</Link></li>
+                <li><Link href="https://clinic.armanlogicalsystems.in" className="hover:text-brand-cyan transition-colors">ClinicMind Hub</Link></li>
+                <li><Link href="https://shop.armanlogicalsystems.in" className="hover:text-brand-cyan transition-colors">LocalHub Market</Link></li>
+              </ul>
+            </div>
+
+            {/* Legal Column */}
+            <div>
+              <h3 className="text-white font-bold mb-6 tracking-wide">Company</h3>
+              <ul className="space-y-4 text-sm font-medium text-slate-400">
+                <li><a href="#" className="hover:text-white transition-colors">Contact Support</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">Privacy Policy</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">Terms of Service</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">Partner Program</a></li>
+              </ul>
+            </div>
+          </div>
+
+          <div className="border-t border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+            <p className="text-slate-500 font-medium text-sm">
+              © {new Date().getFullYear()} Arman Logical Systems. All rights reserved.
+            </p>
+            <div className="flex items-center gap-2 text-slate-500 text-sm font-medium">
+              Made in <span className="text-white">India</span>
+            </div>
           </div>
         </div>
       </footer>
-
     </main>
   );
 }
