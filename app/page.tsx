@@ -2,9 +2,20 @@
 
 import { motion, Variants } from "framer-motion";
 import { Plus_Jakarta_Sans } from "next/font/google";
-import { GraduationCap, Utensils, Stethoscope, Store, ArrowRight, CheckCircle2 } from "lucide-react";
+import { 
+  GraduationCap, 
+  Utensils, 
+  Stethoscope, 
+  Store, 
+  ArrowRight, 
+  CheckCircle2,
+  Calendar,
+  Sparkles,
+  CreditCard
+} from "lucide-react";
 import Link from "next/link";
-import Image from "next/image";
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
 
 // Premium Typography
 const jakarta = Plus_Jakarta_Sans({ 
@@ -18,10 +29,10 @@ const apps = [
     id: "schoolahive",
     title: "Schoolahive",
     tagline: "Education ERP",
-    description: "Complete management for modern schools.",
+    description: "Complete management for modern schools, student attendance & academic ledgers.",
     domain: "school.armanlogicalsystems.in",
     features: ["Exam Results & Marks", "Student Attendance", "Academic Ledger"],
-    icon: <GraduationCap size={36} className="text-brand-blue" />,
+    icon: <GraduationCap size={36} className="text-blue-600" />,
     hoverColor: "group-hover:from-blue-600 group-hover:to-blue-400",
     buttonText: "Open Schoolahive"
   },
@@ -29,10 +40,10 @@ const apps = [
     id: "dineserve",
     title: "DineServe",
     tagline: "Restaurant OS",
-    description: "Smart management for dining experiences.",
+    description: "Smart management for dining experiences, table QR ordering & kitchen display.",
     domain: "dine.armanlogicalsystems.in",
     features: ["Table QR Ordering", "Captain & Chef Views", "Kitchen Display"],
-    icon: <Utensils size={36} className="text-brand-cyan" />,
+    icon: <Utensils size={36} className="text-cyan-500" />,
     hoverColor: "group-hover:from-cyan-500 group-hover:to-cyan-400",
     buttonText: "Open DineServe"
   },
@@ -40,7 +51,7 @@ const apps = [
     id: "clinicmind",
     title: "ClinicMind",
     tagline: "Healthcare Hub",
-    description: "Digital infrastructure for local clinics.",
+    description: "Digital infrastructure for local clinics, doctor bookings & medicine stock.",
     domain: "clinic.armanlogicalsystems.in",
     features: ["Doctor Booking", "Medicine Inventory", "FaceID Geofence"],
     icon: <Stethoscope size={36} className="text-emerald-500" />,
@@ -51,7 +62,7 @@ const apps = [
     id: "localhub",
     title: "LocalHub",
     tagline: "Retail & Market",
-    description: "Neighborhood retail and marketplace.",
+    description: "Neighborhood retail OS, marketplace listings & local offers.",
     domain: "shop.armanlogicalsystems.in",
     features: ["Shop Listings", "Live Offers", "Local Updates"],
     icon: <Store size={36} className="text-orange-500" />,
@@ -60,7 +71,6 @@ const apps = [
   }
 ];
 
-// Strict Type-Safe Animations
 const staggerContainer: Variants = {
   hidden: { opacity: 0 },
   show: {
@@ -81,58 +91,39 @@ export default function Gateway() {
       {/* Background Architectural Grid Pattern */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:32px_32px] pointer-events-none"></div>
 
-      {/* --- Upgraded Full-Width Navigation --- */}
-      <nav className="sticky top-0 z-50 w-full bg-white/85 backdrop-blur-xl border-b border-slate-200 shadow-sm transition-all duration-300">
-        <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-          <div className="flex items-center gap-4 cursor-pointer">
-            {/* Clean, unrestrictive logo container */}
-            <div className="relative h-10 w-10 flex items-center justify-center">
-              <Image 
-                src="/Applogo.png" 
-                alt="Arman Logical Systems Logo" 
-                fill
-                className="object-contain"
-                sizes="40px"
-                priority
-              />
-            </div>
-            <div className="flex flex-col">
-              <span className="text-xl font-extrabold tracking-tight text-slate-900 leading-tight">
-                Arman Logical Systems
-              </span>
-              <span className="text-xs font-semibold tracking-wider text-slate-500 uppercase">
-                Gateway Ecosystem
-              </span>
-            </div>
-          </div>
-        </div>
-      </nav>
+      {/* Centered Navbar without buttons */}
+      <Navbar />
 
-      {/* --- Clean Hero Section --- */}
-      <section className="relative w-full max-w-4xl mx-auto px-6 pt-24 pb-20 text-center z-10 flex-grow">
+      {/* Hero Section */}
+      <section className="relative w-full max-w-5xl mx-auto px-4 sm:px-6 pt-16 pb-12 text-center z-10 flex-grow">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7 }}
         >
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-50 border border-blue-100 text-brand-blue font-semibold text-sm mb-6">
-            <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-cyan opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-brand-blue"></span>
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-50 border border-blue-200 text-blue-800 font-semibold text-xs sm:text-sm mb-6 shadow-xs">
+            <span className="relative flex h-2.5 w-2.5">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-blue-600"></span>
             </span>
-            All Systems Operational
+            Arman Logical Systems Gateway • All Systems Operational
           </div>
-          <h1 className="text-5xl md:text-6xl font-extrabold tracking-tight text-slate-900 mb-6 leading-[1.1]">
+
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-slate-900 mb-6 leading-[1.15]">
             Select your platform <br className="hidden md:block" />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-blue to-brand-cyan">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-700 via-indigo-600 to-cyan-600">
               to access your dashboard.
             </span>
           </h1>
+
+          <p className="text-slate-600 text-base sm:text-lg max-w-2xl mx-auto font-medium">
+            Arman Logical Systems delivers enterprise software, localized ERPs, and custom web applications for schools, restaurants, clinics, and retail platforms.
+          </p>
         </motion.div>
       </section>
 
-      {/* --- Upgraded Premium Cards --- */}
-      <section className="w-full max-w-6xl mx-auto px-6 pb-32 z-10">
+      {/* Ecosystem SaaS Product Cards Grid */}
+      <section className="w-full max-w-6xl mx-auto px-4 sm:px-6 pb-16 z-10">
         <motion.div 
           variants={staggerContainer}
           initial="hidden"
@@ -141,18 +132,15 @@ export default function Gateway() {
         >
           {apps.map((app) => (
             <Link href={`https://${app.domain}`} key={app.id} passHref>
-              {/* Outer Card acts as the animated border */}
               <motion.div 
                 variants={fadeUp}
                 whileHover={{ y: -6 }}
                 whileTap={{ scale: 0.98 }}
                 className={`group relative rounded-[2rem] p-[2px] bg-gradient-to-b from-slate-200 to-slate-100 shadow-md hover:shadow-2xl transition-all duration-500 cursor-pointer h-full ${app.hoverColor}`}
               >
-                {/* Inner Card (White background) */}
                 <div className="relative bg-white rounded-[calc(2rem-2px)] p-8 h-full flex flex-col overflow-hidden">
                   
-                  {/* Subtle Background Glow inside card */}
-                  <div className="absolute top-0 right-0 w-32 h-32 bg-slate-50 rounded-full blur-3xl group-hover:bg-brand-light transition-colors duration-500"></div>
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-slate-50 rounded-full blur-3xl group-hover:bg-blue-50 transition-colors duration-500"></div>
 
                   <div className="relative z-10 flex items-start justify-between mb-8">
                     <div className="flex items-center gap-4">
@@ -178,7 +166,7 @@ export default function Gateway() {
                     <ul className="space-y-3 mb-8">
                       {app.features.map((feature, idx) => (
                         <li key={idx} className="flex items-center text-slate-700 font-medium text-sm">
-                          <CheckCircle2 size={16} className="text-slate-300 group-hover:text-brand-cyan transition-colors mr-3" />
+                          <CheckCircle2 size={16} className="text-slate-300 group-hover:text-cyan-500 transition-colors mr-3" />
                           {feature}
                         </li>
                       ))}
@@ -198,67 +186,47 @@ export default function Gateway() {
         </motion.div>
       </section>
 
-      {/* --- Upgraded Enterprise Footer --- */}
-      <footer className="w-full bg-slate-900 border-t border-slate-800 pt-20 pb-10 z-10 mt-auto">
-        <div className="max-w-7xl mx-auto px-6">
-          
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
-            {/* Brand Column */}
-            <div className="md:col-span-2">
-              <div className="flex items-center gap-3 mb-6">
-                 {/* Footer Logo - Grayscale */}
-                <div className="relative h-8 w-8 brightness-0 invert opacity-90">
-              <Image 
-                src="/Applogo.png" 
-                alt="Arman Logical Systems Logo" 
-                fill
-                className="object-contain"
-                sizes="40px"
-                priority
-              />
-                </div>
-                <span className="text-2xl font-bold tracking-tight text-white">
-                  Arman Logical Systems
-                </span>
-              </div>
-              <p className="text-slate-400 font-medium max-w-sm">
-                Empowering Indian businesses, schools, and clinics with scalable, localized digital infrastructure.
-              </p>
-            </div>
+      {/* Subscription Extension Card BELOW the products */}
+      <section className="w-full max-w-6xl mx-auto px-4 sm:px-6 pb-24 z-10">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="p-8 sm:p-10 rounded-[2.5rem] bg-gradient-to-r from-slate-900 via-slate-850 to-slate-900 border border-slate-800 text-white shadow-2xl relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-8"
+        >
+          {/* Decorative background glow */}
+          <div className="absolute top-0 right-0 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl pointer-events-none"></div>
 
-            {/* Ecosystem Column */}
-            <div>
-              <h3 className="text-white font-bold mb-6 tracking-wide">Ecosystem</h3>
-              <ul className="space-y-4 text-sm font-medium text-slate-400">
-                <li><Link href="https://school.armanlogicalsystems.in" className="hover:text-brand-cyan transition-colors">Schoolahive ERP</Link></li>
-                <li><Link href="https://dine.armanlogicalsystems.in" className="hover:text-brand-cyan transition-colors">DineServe POS</Link></li>
-                <li><Link href="https://clinic.armanlogicalsystems.in" className="hover:text-brand-cyan transition-colors">ClinicMind Hub</Link></li>
-                <li><Link href="https://shop.armanlogicalsystems.in" className="hover:text-brand-cyan transition-colors">LocalHub Market</Link></li>
-              </ul>
+          <div className="space-y-3 text-center md:text-left relative z-10 max-w-2xl">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/20 text-cyan-300 text-xs font-bold border border-blue-500/30">
+              <Calendar className="w-3.5 h-3.5" /> License Extension Hub
             </div>
+            
+            <h2 className="text-2xl sm:text-3xl font-black text-white tracking-tight">
+              Extend Your SaaS Subscription
+            </h2>
 
-            {/* Legal Column */}
-            <div>
-              <h3 className="text-white font-bold mb-6 tracking-wide">Company</h3>
-              <ul className="space-y-4 text-sm font-medium text-slate-400">
-                <li><a href="#" className="hover:text-white transition-colors">Contact Support</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Privacy Policy</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Terms of Service</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Partner Program</a></li>
-              </ul>
-            </div>
-          </div>
-
-          <div className="border-t border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-slate-500 font-medium text-sm">
-              © {new Date().getFullYear()} Arman Logical Systems. All rights reserved.
+            <p className="text-slate-300 text-sm sm:text-base leading-relaxed font-medium">
+              Have an existing product license for Schoolahive, DineServe, ClinicMind, or LocalHub? Fetch your current expiry date and extend your annual subscription for 1 to 5 years.
             </p>
-            <div className="flex items-center gap-2 text-slate-500 text-sm font-medium">
-              Made in <span className="text-white">India</span>
-            </div>
           </div>
-        </div>
-      </footer>
+
+          <div className="relative z-10 shrink-0 w-full md:w-auto">
+            <Link
+              href="/pay"
+              className="w-full md:w-auto px-8 py-4 rounded-2xl bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-700 hover:from-blue-500 hover:to-indigo-500 text-white font-extrabold text-base flex items-center justify-center gap-3 shadow-xl hover:shadow-2xl transition-all duration-200 active:scale-98"
+            >
+              <CreditCard className="w-5 h-5 text-cyan-300" />
+              Extend SaaS Subscription
+              <ArrowRight className="w-5 h-5" />
+            </Link>
+          </div>
+        </motion.div>
+      </section>
+
+      {/* Shared Footer */}
+      <Footer />
     </main>
   );
 }
