@@ -12,9 +12,7 @@ import {
   RefreshCw, 
   Building2, 
   Percent,
-  Check,
-  Lock,
-  Copy
+  Lock
 } from "lucide-react";
 import A4TaxInvoice from "./A4TaxInvoice";
 
@@ -186,29 +184,29 @@ export default function SubscriptionExtensionCard() {
           onReset={() => setPaymentSuccess(false)} 
         />
       ) : (
-        /* Wide 2-Column Responsive Dashboard Layout */
-        <div className="p-6 sm:p-10 rounded-3xl bg-slate-800/90 border border-slate-700/80 shadow-2xl space-y-8 text-slate-100">
+        /* Wide 2-Column Responsive Dashboard Layout (Dark/Light Compliant) */
+        <div className="p-6 sm:p-10 rounded-3xl bg-white dark:bg-slate-800/90 border border-slate-200 dark:border-slate-700/80 shadow-2xl space-y-8 text-slate-900 dark:text-slate-100 transition-colors duration-300">
           
           {/* Header Bar */}
-          <div className="border-b border-slate-700 pb-5 flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div className="border-b border-slate-200 dark:border-slate-700 pb-5 flex flex-col md:flex-row md:items-center justify-between gap-4">
             <div>
-              <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-semibold mb-2">
-                <ShieldCheck className="w-4 h-4 text-emerald-400" /> SaaS Renewal & Extension Hub
+              <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-blue-50 dark:bg-blue-500/10 border border-blue-200 dark:border-blue-500/20 text-blue-700 dark:text-blue-400 text-xs font-semibold mb-2">
+                <ShieldCheck className="w-4 h-4 text-emerald-600 dark:text-emerald-400" /> SaaS Renewal & Extension Hub
               </div>
-              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-white tracking-tight">
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-slate-900 dark:text-white tracking-tight">
                 Extend Your SaaS Subscription
               </h2>
-              <p className="text-slate-400 text-xs sm:text-sm mt-1">
+              <p className="text-slate-600 dark:text-slate-400 text-xs sm:text-sm mt-1">
                 Enter your Product ID or License Key to fetch current subscription details, select duration, and pay.
               </p>
             </div>
 
-            <div className="p-3 rounded-2xl bg-slate-900 border border-slate-700/80 text-xs shrink-0 flex items-center gap-3">
+            <div className="p-3 rounded-2xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700/80 text-xs shrink-0 flex items-center gap-3">
               <div>
-                <div className="text-slate-400 font-bold uppercase text-[10px]">Arman Logical Systems</div>
-                <div className="text-emerald-400 font-semibold">Sahin Arman • MCC 7372</div>
+                <div className="text-slate-500 dark:text-slate-400 font-bold uppercase text-[10px]">Arman Logical Systems</div>
+                <div className="text-emerald-700 dark:text-emerald-400 font-semibold">Sahin Arman • MCC 7372</div>
               </div>
-              <Lock className="w-4 h-4 text-blue-400" />
+              <Lock className="w-4 h-4 text-blue-600 dark:text-blue-400" />
             </div>
           </div>
 
@@ -219,8 +217,8 @@ export default function SubscriptionExtensionCard() {
             <div className="lg:col-span-7 space-y-8">
               
               {/* Step 1: Search & Fetch Product */}
-              <div className="p-6 rounded-2xl bg-slate-900/60 border border-slate-700/80 space-y-4">
-                <label className="block text-xs font-bold text-slate-300 uppercase tracking-wider">
+              <div className="p-6 rounded-2xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-700/80 space-y-4">
+                <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider">
                   1. Enter Product ID / License Key
                 </label>
 
@@ -231,16 +229,16 @@ export default function SubscriptionExtensionCard() {
                       value={productId}
                       onChange={(e) => setProductId(e.target.value)}
                       placeholder="e.g. SCH-2026-884"
-                      className="w-full pl-4 pr-10 py-3.5 rounded-xl bg-slate-950 border border-slate-700 text-white font-mono font-bold text-base uppercase focus:border-blue-500 focus:outline-hidden"
+                      className="w-full pl-4 pr-10 py-3.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white font-mono font-bold text-base uppercase focus:border-blue-500 focus:outline-hidden"
                     />
                     {isSearching && (
-                      <RefreshCw className="w-5 h-5 text-blue-400 animate-spin absolute right-3.5 top-4" />
+                      <RefreshCw className="w-5 h-5 text-blue-600 dark:text-blue-400 animate-spin absolute right-3.5 top-4" />
                     )}
                   </div>
                   <button
                     type="button"
                     onClick={() => handleFetchProduct()}
-                    className="px-6 py-3.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-sm transition-all shrink-0 flex items-center gap-2 shadow-md"
+                    className="px-6 py-3.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm transition-all shrink-0 flex items-center gap-2 shadow-md"
                   >
                     <Search className="w-4 h-4" /> Fetch Product
                   </button>
@@ -248,7 +246,7 @@ export default function SubscriptionExtensionCard() {
 
                 {/* Quick Demo Sample Badges */}
                 <div className="flex flex-wrap items-center gap-2 pt-1 text-xs">
-                  <span className="text-slate-400 text-[11px] font-semibold">Sample License Keys:</span>
+                  <span className="text-slate-500 dark:text-slate-400 text-[11px] font-semibold">Sample License Keys:</span>
                   {Object.keys(mockProductsDatabase).map((key) => (
                     <button
                       key={key}
@@ -256,8 +254,8 @@ export default function SubscriptionExtensionCard() {
                       onClick={() => handleFetchProduct(key)}
                       className={`px-3 py-1 rounded-lg border text-xs font-mono font-bold transition-all ${
                         productId.toUpperCase() === key
-                          ? "bg-blue-600/40 border-blue-500 text-blue-300 ring-1 ring-blue-500/30"
-                          : "bg-slate-950 border-slate-700 text-slate-400 hover:text-slate-200"
+                          ? "bg-blue-50 dark:bg-blue-600/40 border-blue-500 text-blue-700 dark:text-blue-300"
+                          : "bg-white dark:bg-slate-950 border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200"
                       }`}
                     >
                       {key}
@@ -270,19 +268,19 @@ export default function SubscriptionExtensionCard() {
                   <motion.div
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="p-5 rounded-xl bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950 border border-blue-500/40 space-y-3 shadow-lg"
+                    className="p-5 rounded-xl bg-white dark:bg-slate-950 border border-blue-300 dark:border-blue-500/40 space-y-3 shadow-md"
                   >
                     <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                       <div>
-                        <span className="text-[10px] font-extrabold uppercase px-2.5 py-0.5 rounded bg-blue-500/20 text-blue-300 border border-blue-500/30">
+                        <span className="text-[10px] font-extrabold uppercase px-2.5 py-0.5 rounded bg-blue-100 dark:bg-blue-500/20 text-blue-800 dark:text-blue-300 border border-blue-300 dark:border-blue-500/30">
                           {fetchedProduct.category}
                         </span>
-                        <h4 className="text-2xl font-black text-white mt-1">{fetchedProduct.name}</h4>
-                        <p className="text-xs text-slate-300 mt-0.5">Subscriber Org: <strong>{fetchedProduct.clientName}</strong></p>
+                        <h4 className="text-2xl font-black text-slate-900 dark:text-white mt-1">{fetchedProduct.name}</h4>
+                        <p className="text-xs text-slate-600 dark:text-slate-300 mt-0.5">Subscriber Org: <strong>{fetchedProduct.clientName}</strong></p>
                       </div>
-                      <div className="sm:text-right bg-slate-900/80 p-3 rounded-xl border border-slate-800 shrink-0">
-                        <span className="text-[10px] uppercase font-bold text-slate-400 block">Current Expiry</span>
-                        <span className="text-base font-black text-amber-400 flex items-center sm:justify-end gap-1.5 mt-0.5">
+                      <div className="sm:text-right bg-slate-50 dark:bg-slate-900 p-3 rounded-xl border border-slate-200 dark:border-slate-800 shrink-0">
+                        <span className="text-[10px] uppercase font-bold text-slate-500 dark:text-slate-400 block">Current Expiry</span>
+                        <span className="text-base font-black text-amber-600 dark:text-amber-400 flex items-center sm:justify-end gap-1.5 mt-0.5">
                           <Calendar className="w-4 h-4" /> {fetchedProduct.currentExpiry}
                         </span>
                       </div>
@@ -292,12 +290,12 @@ export default function SubscriptionExtensionCard() {
               </div>
 
               {/* Step 2: Select Duration in Years */}
-              <div className="p-6 rounded-2xl bg-slate-900/60 border border-slate-700/80 space-y-4">
+              <div className="p-6 rounded-2xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-700/80 space-y-4">
                 <div className="flex items-center justify-between">
-                  <label className="block text-xs font-bold text-slate-300 uppercase tracking-wider">
+                  <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider">
                     2. Select Extension Duration (Years)
                   </label>
-                  <span className="text-xs text-emerald-400 font-semibold flex items-center gap-1">
+                  <span className="text-xs text-emerald-600 dark:text-emerald-400 font-semibold flex items-center gap-1">
                     <Percent className="w-3.5 h-3.5" /> Save up to 35%
                   </span>
                 </div>
@@ -311,13 +309,13 @@ export default function SubscriptionExtensionCard() {
                         onClick={() => setSelectedDuration(opt)}
                         className={`p-4 rounded-xl border text-center cursor-pointer transition-all ${
                           isSelected
-                            ? "bg-blue-950/80 border-blue-500 ring-2 ring-blue-500/40 shadow-lg"
-                            : "bg-slate-950 border-slate-700/80 hover:border-slate-600"
+                            ? "bg-blue-50 dark:bg-blue-950/80 border-blue-500 ring-2 ring-blue-500/40 shadow-md"
+                            : "bg-white dark:bg-slate-950 border-slate-200 dark:border-slate-700/80 hover:border-slate-400 dark:hover:border-slate-600"
                         }`}
                       >
-                        <div className="text-[10px] text-slate-400 font-bold uppercase">{opt.tag}</div>
-                        <div className="text-2xl font-black text-white my-1.5">{opt.label}</div>
-                        <div className="text-xs text-cyan-300 font-bold">
+                        <div className="text-[10px] text-slate-500 dark:text-slate-400 font-bold uppercase">{opt.tag}</div>
+                        <div className="text-2xl font-black text-slate-900 dark:text-white my-1.5">{opt.label}</div>
+                        <div className="text-xs text-blue-600 dark:text-cyan-300 font-bold">
                           {opt.discount > 0 ? `${opt.discount}% OFF` : "Standard"}
                         </div>
                       </div>
@@ -331,11 +329,11 @@ export default function SubscriptionExtensionCard() {
             {/* Right Column: Payment Channels + Single Pay Button (5 cols) */}
             <div className="lg:col-span-5 space-y-6">
               
-              <div className="p-6 rounded-2xl bg-slate-900 border border-slate-700/90 shadow-xl space-y-6">
+              <div className="p-6 rounded-2xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700/90 shadow-xl space-y-6">
                 
                 {/* Step 3: Choose Payment Channel */}
                 <div>
-                  <label className="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-3">
+                  <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-3">
                     3. Select Payment Channel
                   </label>
 
@@ -346,7 +344,7 @@ export default function SubscriptionExtensionCard() {
                       className={`py-3 px-3 rounded-xl border text-xs font-bold transition-all flex items-center justify-center gap-1.5 ${
                         paymentMethod === "gpay"
                           ? "bg-blue-600 border-blue-500 text-white shadow-md"
-                          : "bg-slate-950 border-slate-700 text-slate-400 hover:text-white"
+                          : "bg-white dark:bg-slate-950 border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
                       }`}
                     >
                       <CreditCard className="w-4 h-4" /> Google Pay
@@ -358,7 +356,7 @@ export default function SubscriptionExtensionCard() {
                       className={`py-3 px-3 rounded-xl border text-xs font-bold transition-all flex items-center justify-center gap-1.5 ${
                         paymentMethod === "upi_qr"
                           ? "bg-blue-600 border-blue-500 text-white shadow-md"
-                          : "bg-slate-950 border-slate-700 text-slate-400 hover:text-white"
+                          : "bg-white dark:bg-slate-950 border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
                       }`}
                     >
                       <QrCode className="w-4 h-4" /> UPI QR Scan
@@ -370,7 +368,7 @@ export default function SubscriptionExtensionCard() {
                       className={`py-3 px-3 rounded-xl border text-xs font-bold transition-all flex items-center justify-center gap-1.5 ${
                         paymentMethod === "card"
                           ? "bg-blue-600 border-blue-500 text-white shadow-md"
-                          : "bg-slate-950 border-slate-700 text-slate-400 hover:text-white"
+                          : "bg-white dark:bg-slate-950 border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
                       }`}
                     >
                       <CreditCard className="w-4 h-4" /> Cards
@@ -382,7 +380,7 @@ export default function SubscriptionExtensionCard() {
                       className={`py-3 px-3 rounded-xl border text-xs font-bold transition-all flex items-center justify-center gap-1.5 ${
                         paymentMethod === "netbanking"
                           ? "bg-blue-600 border-blue-500 text-white shadow-md"
-                          : "bg-slate-950 border-slate-700 text-slate-400 hover:text-white"
+                          : "bg-white dark:bg-slate-950 border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
                       }`}
                     >
                       <Building2 className="w-4 h-4" /> Net Banking
@@ -391,27 +389,27 @@ export default function SubscriptionExtensionCard() {
                 </div>
 
                 {/* Channel Helper Details */}
-                <div className="p-3.5 rounded-xl bg-slate-950 border border-slate-800 text-xs text-slate-300 space-y-1.5">
-                  <div className="font-bold text-white flex items-center justify-between">
+                <div className="p-3.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 text-xs text-slate-700 dark:text-slate-300 space-y-1.5">
+                  <div className="font-bold text-slate-900 dark:text-white flex items-center justify-between">
                     <span>
                       {paymentMethod === 'gpay' ? 'Google Pay (GPay) API' : paymentMethod === 'upi_qr' ? 'UPI VPA Payment' : paymentMethod === 'card' ? 'Credit / Debit Card' : 'Net Banking Gateway'}
                     </span>
-                    <span className="text-emerald-400 text-[10px] font-mono">Instant Renewal</span>
+                    <span className="text-emerald-600 dark:text-emerald-400 text-[10px] font-mono font-bold">Instant Renewal</span>
                   </div>
                   {paymentMethod === 'upi_qr' && (
                     <div className="flex items-center justify-between pt-1">
-                      <span className="font-mono text-slate-400">sahin401099@okicici</span>
+                      <span className="font-mono text-slate-500 dark:text-slate-400">sahin401099@okicici</span>
                       <button
                         type="button"
                         onClick={handleCopyVpa}
-                        className="px-2 py-0.5 rounded bg-blue-600/30 text-blue-300 text-[10px] font-bold"
+                        className="px-2 py-0.5 rounded bg-blue-100 dark:bg-blue-600/30 text-blue-700 dark:text-blue-300 text-[10px] font-bold"
                       >
                         {copiedVpa ? "Copied!" : "Copy VPA"}
                       </button>
                     </div>
                   )}
-                  <p className="text-[11px] text-slate-400">
-                    New Extended Expiry Date: <strong className="text-cyan-300">{getNewExpiryDate()}</strong>
+                  <p className="text-[11px] text-slate-500 dark:text-slate-400">
+                    New Extended Expiry Date: <strong className="text-blue-700 dark:text-cyan-300">{getNewExpiryDate()}</strong>
                   </p>
                 </div>
 
@@ -438,7 +436,7 @@ export default function SubscriptionExtensionCard() {
                   )}
                 </button>
 
-                <div className="pt-2 text-[11px] text-slate-400 text-center">
+                <div className="pt-2 text-[11px] text-slate-500 dark:text-slate-400 text-center">
                   Includes 18% GST • Computer Generated Single A4 Tax Invoice
                 </div>
 

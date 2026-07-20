@@ -1,15 +1,14 @@
 import type { Metadata } from "next";
 import { Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
+import { ThemeProvider } from "./components/ThemeProvider";
 
-// Injecting the premium typography globally
 const plusJakartaSans = Plus_Jakarta_Sans({
   variable: "--font-plus-jakarta",
   subsets: ["latin"],
   display: "swap",
 });
 
-// Premium production SEO Metadata 
 export const metadata: Metadata = {
   title: "Arman Logical Systems | Gateway Ecosystem",
   description: "Secure digital infrastructure and centralized operating systems for local schools, clinics, restaurants, and marketplaces.",
@@ -37,10 +36,12 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${plusJakartaSans.variable} h-full antialiased`}
+      className={`${plusJakartaSans.variable} h-full antialiased dark`}
     >
-      <body className="min-h-full flex flex-col bg-slate-50 text-slate-900 selection:bg-brand-cyan/30">
-        {children}
+      <body className="min-h-full flex flex-col selection:bg-cyan-500/30 selection:text-cyan-200 font-sans transition-colors duration-300">
+        <ThemeProvider>
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );
