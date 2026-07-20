@@ -12,8 +12,8 @@ export default function Navbar() {
     <nav className="sticky top-0 z-50 w-full bg-white/90 dark:bg-slate-950/90 backdrop-blur-xl border-b border-slate-200 dark:border-slate-800 transition-colors duration-300 shadow-xs">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 h-20 flex items-center justify-between relative">
         
-        {/* Empty left spacer for perfect centering */}
-        <div className="w-10 sm:w-24"></div>
+        {/* Left Spacer */}
+        <div className="w-12 sm:w-28"></div>
 
         {/* Logo and Business Name Centered at Middle */}
         <Link href="/" className="flex items-center gap-3.5 group cursor-pointer justify-center">
@@ -37,18 +37,25 @@ export default function Navbar() {
           </div>
         </Link>
 
-        {/* Dark / Light Mode Toggle Button (Absolute Right) */}
+        {/* Dark / Light Mode Toggle Switch (Absolute Right) */}
         <div className="flex items-center">
           <button
+            type="button"
             onClick={toggleTheme}
-            className="p-2.5 rounded-2xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-cyan-400 hover:border-blue-400 dark:hover:border-cyan-500/50 transition-all duration-200 shadow-xs active:scale-95 flex items-center justify-center"
+            className="px-3 py-2 rounded-2xl bg-slate-100 dark:bg-slate-900 border border-slate-300 dark:border-slate-700 text-slate-800 dark:text-slate-200 hover:border-blue-500 dark:hover:border-cyan-400 transition-all duration-200 shadow-xs active:scale-95 flex items-center gap-2 text-xs font-bold cursor-pointer"
             title={`Switch to ${theme === 'dark' ? 'Light' : 'Dark'} Mode`}
             aria-label="Toggle Dark / Light Mode"
           >
             {theme === "dark" ? (
-              <Sun className="w-5 h-5 text-amber-400 animate-spin-slow" />
+              <>
+                <Sun className="w-4 h-4 text-amber-400" />
+                <span className="hidden sm:inline">Light</span>
+              </>
             ) : (
-              <Moon className="w-5 h-5 text-indigo-600" />
+              <>
+                <Moon className="w-4 h-4 text-indigo-600" />
+                <span className="hidden sm:inline">Dark</span>
+              </>
             )}
           </button>
         </div>

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { 
   Search, 
   Calendar, 
@@ -12,8 +12,14 @@ import {
   RefreshCw, 
   Building2, 
   Percent,
-  Lock
+  Lock,
+  CheckCircle2,
+  Printer,
+  Sparkles,
+  ArrowLeft,
+  FileText
 } from "lucide-react";
+import Link from "next/link";
 import A4TaxInvoice from "./A4TaxInvoice";
 
 // Mock Database of Products / Licenses for Demonstration & Auto-Fetch
@@ -92,6 +98,7 @@ export default function SubscriptionExtensionCard() {
   
   const [isProcessing, setIsProcessing] = useState(false);
   const [paymentSuccess, setPaymentSuccess] = useState(false);
+  const [showInvoicePrint, setShowInvoicePrint] = useState(false);
   const [receipt, setReceipt] = useState<any>(null);
 
   // Fetch product logic
@@ -171,6 +178,7 @@ export default function SubscriptionExtensionCard() {
         date: new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })
       });
       setPaymentSuccess(true);
+      setShowInvoicePrint(false);
     }, 1500);
   };
 
@@ -178,11 +186,105 @@ export default function SubscriptionExtensionCard() {
     <div className="w-full max-w-6xl lg:max-w-7xl mx-auto">
       
       {paymentSuccess && receipt ? (
-        /* Render Single A4 Page Tax Invoice */
-        <A4TaxInvoice 
-          invoice={receipt} 
-          onReset={() => setPaymentSuccess(false)} 
-        />
+        <div className="space-y-8">
+          
+          {/* Animated Success View */}
+          {!showInvoicePrint ? (
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              className="p-8 sm:p-12 rounded-3xl bg-white dark:bg-slate-800 border border-emerald-300 dark:border-emerald-500/40 shadow-2xl space-y-8 text-center"
+            >
+              {/* Confetti & Checkmark Animation */}
+              <div className="relative w-24 h-24 mx-auto">
+                <motion.div 
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  transition={{ type: "spring", stiffness: 200, damping: 12 }}
+                  className="w-24 h-24 rounded-full bg-emerald-100 dark:bg-emerald-500/20 border-4 border-emerald-500 flex items-center justify-center shadow-lg shadow-emerald-500/20"
+                >
+                  <CheckCircle2 className="w-14 h-14 text-emerald-600 dark:text-emerald-400" />
+                </motion.div>
+                <div className="absolute -top-2 -right-2 text-amber-400 animate-bounce">
+                  <Sparkles className="w-7 h-7" />
+                </div>
+              </div>
+
+              <div>
+                <span className="px-4 py-1.5 rounded-full text-xs font-black uppercase tracking-wider bg-emerald-100 dark:bg-emerald-500/20 text-emerald-800 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-500/30">
+                  Payment Verified • Subscription Extended
+                </span>
+                <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 dark:text-white mt-4 tracking-tight">
+                  Payment Successful!
+                </h2>
+                <p className="text-slate-600 dark:text-slate-300 text-base max-w-xl mx-auto mt-2">
+                  Your payment for <strong>{receipt.productName}</strong> ({receipt.clientName}) was processed successfully via <strong>{receipt.channel}</strong>.
+                </p>
+              </div>
+
+              {/* Renewal Summary Details Grid */}
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-3xl mx-auto text-left">
+                <div className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700/80">
+                  <span className="text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase block">License Key</span>
+                  <span className="text-base font-mono font-bold text-slate-900 dark:text-white mt-1 block">{receipt.productId}</span>
+                </div>
+
+                <div className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700/80">
+                  <span className="text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase block">New Expiry Date</span>
+                  <span className="text-base font-black text-emerald-600 dark:text-emerald-400 mt-1 block flex items-center gap-1.5">
+                    <Calendar className="w-4 h-4" /> {receipt.newExpiry}
+                  </span>
+                </div>
+
+                <div className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700/80">
+                  <span className="text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase block">Total Amount Paid</span>
+                  <span className="text-base font-black text-blue-600 dark:text-cyan-300 mt-1 block">₹{receipt.totalAmount.toLocaleString('en-IN')} INR</span>
+                </div>
+              </div>
+
+              {/* Action Buttons */}
+              <div className="flex flex-wrap items-center justify-center gap-4 pt-4">
+                <button
+                  onClick={() => setShowInvoicePrint(true)}
+                  className="px-6 py-4 rounded-2xl bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-700 hover:from-blue-500 hover:to-indigo-500 text-white font-black text-base flex items-center gap-2.5 shadow-xl hover:shadow-2xl transition-all cursor-pointer"
+                >
+                  <Printer className="w-5 h-5 text-cyan-300" />
+                  Print / Download Tax Invoice (A4)
+                </button>
+
+                <button
+                  onClick={() => setPaymentSuccess(false)}
+                  className="px-6 py-4 rounded-2xl bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 text-slate-800 dark:text-slate-200 font-bold text-sm flex items-center gap-2 transition-all cursor-pointer"
+                >
+                  <RefreshCw className="w-4 h-4" /> Extend Another Subscription
+                </button>
+
+                <Link
+                  href="/"
+                  className="px-6 py-4 rounded-2xl bg-slate-900 dark:bg-slate-950 text-slate-200 font-bold text-sm flex items-center gap-2 transition-all"
+                >
+                  <ArrowLeft className="w-4 h-4" /> Return to Home
+                </Link>
+              </div>
+
+            </motion.div>
+          ) : (
+            /* Single A4 Printable Tax Invoice View */
+            <div className="space-y-4">
+              <button
+                onClick={() => setShowInvoicePrint(false)}
+                className="px-4 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 text-slate-800 dark:text-slate-200 text-xs font-bold flex items-center gap-2 cursor-pointer mb-2"
+              >
+                <ArrowLeft className="w-4 h-4" /> Back to Confirmation Screen
+              </button>
+              <A4TaxInvoice 
+                invoice={receipt} 
+                onReset={() => setPaymentSuccess(false)} 
+              />
+            </div>
+          )}
+
+        </div>
       ) : (
         /* Wide 2-Column Responsive Dashboard Layout (Dark/Light Compliant) */
         <div className="p-6 sm:p-10 rounded-3xl bg-white dark:bg-slate-800/90 border border-slate-200 dark:border-slate-700/80 shadow-2xl space-y-8 text-slate-900 dark:text-slate-100 transition-colors duration-300">
@@ -238,7 +340,7 @@ export default function SubscriptionExtensionCard() {
                   <button
                     type="button"
                     onClick={() => handleFetchProduct()}
-                    className="px-6 py-3.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm transition-all shrink-0 flex items-center gap-2 shadow-md"
+                    className="px-6 py-3.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm transition-all shrink-0 flex items-center gap-2 shadow-md cursor-pointer"
                   >
                     <Search className="w-4 h-4" /> Fetch Product
                   </button>
@@ -252,7 +354,7 @@ export default function SubscriptionExtensionCard() {
                       key={key}
                       type="button"
                       onClick={() => handleFetchProduct(key)}
-                      className={`px-3 py-1 rounded-lg border text-xs font-mono font-bold transition-all ${
+                      className={`px-3 py-1 rounded-lg border text-xs font-mono font-bold transition-all cursor-pointer ${
                         productId.toUpperCase() === key
                           ? "bg-blue-50 dark:bg-blue-600/40 border-blue-500 text-blue-700 dark:text-blue-300"
                           : "bg-white dark:bg-slate-950 border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200"
@@ -341,7 +443,7 @@ export default function SubscriptionExtensionCard() {
                     <button
                       type="button"
                       onClick={() => setPaymentMethod("gpay")}
-                      className={`py-3 px-3 rounded-xl border text-xs font-bold transition-all flex items-center justify-center gap-1.5 ${
+                      className={`py-3 px-3 rounded-xl border text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
                         paymentMethod === "gpay"
                           ? "bg-blue-600 border-blue-500 text-white shadow-md"
                           : "bg-white dark:bg-slate-950 border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
@@ -353,7 +455,7 @@ export default function SubscriptionExtensionCard() {
                     <button
                       type="button"
                       onClick={() => setPaymentMethod("upi_qr")}
-                      className={`py-3 px-3 rounded-xl border text-xs font-bold transition-all flex items-center justify-center gap-1.5 ${
+                      className={`py-3 px-3 rounded-xl border text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
                         paymentMethod === "upi_qr"
                           ? "bg-blue-600 border-blue-500 text-white shadow-md"
                           : "bg-white dark:bg-slate-950 border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
@@ -365,7 +467,7 @@ export default function SubscriptionExtensionCard() {
                     <button
                       type="button"
                       onClick={() => setPaymentMethod("card")}
-                      className={`py-3 px-3 rounded-xl border text-xs font-bold transition-all flex items-center justify-center gap-1.5 ${
+                      className={`py-3 px-3 rounded-xl border text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
                         paymentMethod === "card"
                           ? "bg-blue-600 border-blue-500 text-white shadow-md"
                           : "bg-white dark:bg-slate-950 border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
@@ -377,7 +479,7 @@ export default function SubscriptionExtensionCard() {
                     <button
                       type="button"
                       onClick={() => setPaymentMethod("netbanking")}
-                      className={`py-3 px-3 rounded-xl border text-xs font-bold transition-all flex items-center justify-center gap-1.5 ${
+                      className={`py-3 px-3 rounded-xl border text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
                         paymentMethod === "netbanking"
                           ? "bg-blue-600 border-blue-500 text-white shadow-md"
                           : "bg-white dark:bg-slate-950 border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
@@ -402,7 +504,7 @@ export default function SubscriptionExtensionCard() {
                       <button
                         type="button"
                         onClick={handleCopyVpa}
-                        className="px-2 py-0.5 rounded bg-blue-100 dark:bg-blue-600/30 text-blue-700 dark:text-blue-300 text-[10px] font-bold"
+                        className="px-2 py-0.5 rounded bg-blue-100 dark:bg-blue-600/30 text-blue-700 dark:text-blue-300 text-[10px] font-bold cursor-pointer"
                       >
                         {copiedVpa ? "Copied!" : "Copy VPA"}
                       </button>
@@ -417,7 +519,7 @@ export default function SubscriptionExtensionCard() {
                 <button
                   onClick={handlePay}
                   disabled={isProcessing}
-                  className="w-full py-4.5 px-6 rounded-xl bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-700 hover:from-blue-500 hover:to-indigo-500 text-white font-black text-lg sm:text-xl flex items-center justify-center gap-3 shadow-xl hover:shadow-2xl transition-all active:scale-98 disabled:opacity-50"
+                  className="w-full py-4.5 px-6 rounded-xl bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-700 hover:from-blue-500 hover:to-indigo-500 text-white font-black text-lg sm:text-xl flex items-center justify-center gap-3 shadow-xl hover:shadow-2xl transition-all active:scale-98 disabled:opacity-50 cursor-pointer"
                 >
                   {isProcessing ? (
                     <div className="flex items-center gap-2 text-base font-bold">
