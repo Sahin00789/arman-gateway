@@ -11,7 +11,10 @@ import {
   ArrowRight, 
   RefreshCw, 
   Building2, 
-  Percent
+  Percent,
+  Check,
+  Lock,
+  Copy
 } from "lucide-react";
 import A4TaxInvoice from "./A4TaxInvoice";
 
@@ -87,6 +90,7 @@ export default function SubscriptionExtensionCard() {
 
   const [selectedDuration, setSelectedDuration] = useState(durationOptions[2]); // 3 years default
   const [paymentMethod, setPaymentMethod] = useState<"gpay" | "upi_qr" | "card" | "netbanking">("gpay");
+  const [copiedVpa, setCopiedVpa] = useState(false);
   
   const [isProcessing, setIsProcessing] = useState(false);
   const [paymentSuccess, setPaymentSuccess] = useState(false);
@@ -118,7 +122,7 @@ export default function SubscriptionExtensionCard() {
         };
         setFetchedProduct(dynamicProduct);
       }
-    }, 600);
+    }, 500);
   };
 
   // Pricing calculations
@@ -137,6 +141,12 @@ export default function SubscriptionExtensionCard() {
     const newYear = fetchedProduct.expiryYear + years;
     const dateObj = new Date(newYear, fetchedProduct.expiryMonth, fetchedProduct.expiryDay);
     return dateObj.toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' });
+  };
+
+  const handleCopyVpa = () => {
+    navigator.clipboard.writeText("sahin401099@okicici");
+    setCopiedVpa(true);
+    setTimeout(() => setCopiedVpa(false), 2000);
   };
 
   const handlePay = (e: React.FormEvent) => {
@@ -167,7 +177,7 @@ export default function SubscriptionExtensionCard() {
   };
 
   return (
-    <div className="w-full max-w-4xl mx-auto">
+    <div className="w-full max-w-6xl lg:max-w-7xl mx-auto">
       
       {paymentSuccess && receipt ? (
         /* Render Single A4 Page Tax Invoice */
@@ -176,216 +186,266 @@ export default function SubscriptionExtensionCard() {
           onReset={() => setPaymentSuccess(false)} 
         />
       ) : (
-        /* Extension Workflow Card */
-        <div className="p-6 sm:p-8 rounded-3xl bg-slate-800/90 border border-slate-700 shadow-2xl space-y-8 text-slate-100">
+        /* Wide 2-Column Responsive Dashboard Layout */
+        <div className="p-6 sm:p-10 rounded-3xl bg-slate-800/90 border border-slate-700/80 shadow-2xl space-y-8 text-slate-100">
           
-          {/* Header */}
-          <div className="border-b border-slate-700 pb-5">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-semibold mb-2">
-              <ShieldCheck className="w-4 h-4 text-emerald-400" /> SaaS Renewal & Extension Hub
+          {/* Header Bar */}
+          <div className="border-b border-slate-700 pb-5 flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div>
+              <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-semibold mb-2">
+                <ShieldCheck className="w-4 h-4 text-emerald-400" /> SaaS Renewal & Extension Hub
+              </div>
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-white tracking-tight">
+                Extend Your SaaS Subscription
+              </h2>
+              <p className="text-slate-400 text-xs sm:text-sm mt-1">
+                Enter your Product ID or License Key to fetch current subscription details, select duration, and pay.
+              </p>
             </div>
-            <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
-              Extend Your SaaS Subscription
-            </h2>
-            <p className="text-slate-400 text-xs sm:text-sm mt-1">
-              Enter your Product ID or License Key to fetch current subscription details, choose extension years, and pay.
-            </p>
+
+            <div className="p-3 rounded-2xl bg-slate-900 border border-slate-700/80 text-xs shrink-0 flex items-center gap-3">
+              <div>
+                <div className="text-slate-400 font-bold uppercase text-[10px]">Arman Logical Systems</div>
+                <div className="text-emerald-400 font-semibold">Sahin Arman • MCC 7372</div>
+              </div>
+              <Lock className="w-4 h-4 text-blue-400" />
+            </div>
           </div>
 
-          {/* Step 1: Search & Fetch Product */}
-          <div className="space-y-4">
-            <label className="block text-xs font-bold text-slate-300 uppercase tracking-wider">
-              1. Enter Product ID / License Key
-            </label>
+          {/* 2-Column Grid */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+            
+            {/* Left Column: Fetch Product + Duration Selection (7 cols) */}
+            <div className="lg:col-span-7 space-y-8">
+              
+              {/* Step 1: Search & Fetch Product */}
+              <div className="p-6 rounded-2xl bg-slate-900/60 border border-slate-700/80 space-y-4">
+                <label className="block text-xs font-bold text-slate-300 uppercase tracking-wider">
+                  1. Enter Product ID / License Key
+                </label>
 
-            <div className="flex gap-2">
-              <div className="relative flex-grow">
-                <input
-                  type="text"
-                  value={productId}
-                  onChange={(e) => setProductId(e.target.value)}
-                  placeholder="e.g. SCH-2026-884"
-                  className="w-full pl-4 pr-10 py-3 rounded-2xl bg-slate-900 border border-slate-700 text-white font-mono font-bold text-sm uppercase focus:border-blue-500 focus:outline-hidden"
-                />
-                {isSearching && (
-                  <RefreshCw className="w-4 h-4 text-blue-400 animate-spin absolute right-3.5 top-3.5" />
+                <div className="flex gap-2">
+                  <div className="relative flex-grow">
+                    <input
+                      type="text"
+                      value={productId}
+                      onChange={(e) => setProductId(e.target.value)}
+                      placeholder="e.g. SCH-2026-884"
+                      className="w-full pl-4 pr-10 py-3.5 rounded-xl bg-slate-950 border border-slate-700 text-white font-mono font-bold text-base uppercase focus:border-blue-500 focus:outline-hidden"
+                    />
+                    {isSearching && (
+                      <RefreshCw className="w-5 h-5 text-blue-400 animate-spin absolute right-3.5 top-4" />
+                    )}
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => handleFetchProduct()}
+                    className="px-6 py-3.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-sm transition-all shrink-0 flex items-center gap-2 shadow-md"
+                  >
+                    <Search className="w-4 h-4" /> Fetch Product
+                  </button>
+                </div>
+
+                {/* Quick Demo Sample Badges */}
+                <div className="flex flex-wrap items-center gap-2 pt-1 text-xs">
+                  <span className="text-slate-400 text-[11px] font-semibold">Sample License Keys:</span>
+                  {Object.keys(mockProductsDatabase).map((key) => (
+                    <button
+                      key={key}
+                      type="button"
+                      onClick={() => handleFetchProduct(key)}
+                      className={`px-3 py-1 rounded-lg border text-xs font-mono font-bold transition-all ${
+                        productId.toUpperCase() === key
+                          ? "bg-blue-600/40 border-blue-500 text-blue-300 ring-1 ring-blue-500/30"
+                          : "bg-slate-950 border-slate-700 text-slate-400 hover:text-slate-200"
+                      }`}
+                    >
+                      {key}
+                    </button>
+                  ))}
+                </div>
+
+                {/* Fetched Product Result Card */}
+                {fetchedProduct && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="p-5 rounded-xl bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950 border border-blue-500/40 space-y-3 shadow-lg"
+                  >
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                      <div>
+                        <span className="text-[10px] font-extrabold uppercase px-2.5 py-0.5 rounded bg-blue-500/20 text-blue-300 border border-blue-500/30">
+                          {fetchedProduct.category}
+                        </span>
+                        <h4 className="text-2xl font-black text-white mt-1">{fetchedProduct.name}</h4>
+                        <p className="text-xs text-slate-300 mt-0.5">Subscriber Org: <strong>{fetchedProduct.clientName}</strong></p>
+                      </div>
+                      <div className="sm:text-right bg-slate-900/80 p-3 rounded-xl border border-slate-800 shrink-0">
+                        <span className="text-[10px] uppercase font-bold text-slate-400 block">Current Expiry</span>
+                        <span className="text-base font-black text-amber-400 flex items-center sm:justify-end gap-1.5 mt-0.5">
+                          <Calendar className="w-4 h-4" /> {fetchedProduct.currentExpiry}
+                        </span>
+                      </div>
+                    </div>
+                  </motion.div>
                 )}
               </div>
-              <button
-                type="button"
-                onClick={() => handleFetchProduct()}
-                className="px-5 py-3 rounded-2xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs sm:text-sm transition-all shrink-0 flex items-center gap-1.5 shadow-md"
-              >
-                <Search className="w-4 h-4" /> Fetch Product
-              </button>
-            </div>
 
-            {/* Quick Demo Sample Badges */}
-            <div className="flex flex-wrap items-center gap-2 pt-1 text-xs">
-              <span className="text-slate-400 text-[11px]">Sample IDs:</span>
-              {Object.keys(mockProductsDatabase).map((key) => (
-                <button
-                  key={key}
-                  type="button"
-                  onClick={() => handleFetchProduct(key)}
-                  className={`px-2.5 py-1 rounded-lg border text-[11px] font-mono font-semibold transition-all ${
-                    productId.toUpperCase() === key
-                      ? "bg-blue-600/30 border-blue-500 text-blue-300"
-                      : "bg-slate-900 border-slate-700 text-slate-400 hover:text-slate-200"
-                  }`}
-                >
-                  {key}
-                </button>
-              ))}
-            </div>
-
-            {/* Fetched Product Result Card */}
-            {fetchedProduct && (
-              <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="p-5 rounded-2xl bg-slate-900/90 border border-blue-500/40 space-y-3"
-              >
-                <div className="flex items-start justify-between">
-                  <div>
-                    <span className="text-[10px] font-extrabold uppercase px-2 py-0.5 rounded bg-blue-500/20 text-blue-300 border border-blue-500/30">
-                      {fetchedProduct.category}
-                    </span>
-                    <h4 className="text-xl font-extrabold text-white mt-1">{fetchedProduct.name}</h4>
-                    <p className="text-xs text-slate-400 mt-0.5">Subscriber: <strong>{fetchedProduct.clientName}</strong></p>
-                  </div>
-                  <div className="text-right">
-                    <span className="text-xs text-slate-400 block">Current Expiry</span>
-                    <span className="text-base font-extrabold text-amber-400 flex items-center justify-end gap-1">
-                      <Calendar className="w-4 h-4" /> {fetchedProduct.currentExpiry}
-                    </span>
-                  </div>
-                </div>
-              </motion.div>
-            )}
-          </div>
-
-          {/* Step 2: Select Duration in Years */}
-          <div className="space-y-4">
-            <div className="flex items-center justify-between">
-              <label className="block text-xs font-bold text-slate-300 uppercase tracking-wider">
-                2. Select Extension Duration (Years)
-              </label>
-              <span className="text-xs text-emerald-400 font-semibold flex items-center gap-1">
-                <Percent className="w-3.5 h-3.5" /> Save up to 35%
-              </span>
-            </div>
-
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-              {durationOptions.map((opt) => {
-                const isSelected = selectedDuration.years === opt.years;
-                return (
-                  <div
-                    key={opt.years}
-                    onClick={() => setSelectedDuration(opt)}
-                    className={`p-4 rounded-2xl border text-center cursor-pointer transition-all ${
-                      isSelected
-                        ? "bg-blue-950/70 border-blue-500 ring-2 ring-blue-500/30"
-                        : "bg-slate-900/70 border-slate-700/70 hover:border-slate-600"
-                    }`}
-                  >
-                    <div className="text-[11px] text-slate-400 font-bold uppercase">{opt.tag}</div>
-                    <div className="text-2xl font-black text-white my-1">{opt.label}</div>
-                    <div className="text-[11px] text-cyan-300 font-bold">
-                      {opt.discount > 0 ? `${opt.discount}% OFF` : "Standard"}
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-
-          {/* Step 3: Choose Payment Channel & Pay Button ONLY containing Amount */}
-          <div className="space-y-4">
-            <label className="block text-xs font-bold text-slate-300 uppercase tracking-wider">
-              3. Select Payment Method & Pay
-            </label>
-
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
-              <button
-                type="button"
-                onClick={() => setPaymentMethod("gpay")}
-                className={`py-3 px-3 rounded-xl border text-xs font-bold transition-all flex items-center justify-center gap-1.5 ${
-                  paymentMethod === "gpay"
-                    ? "bg-blue-600 border-blue-500 text-white shadow-md"
-                    : "bg-slate-900 border-slate-700 text-slate-400 hover:text-white"
-                }`}
-              >
-                <CreditCard className="w-4 h-4" /> Google Pay
-              </button>
-
-              <button
-                type="button"
-                onClick={() => setPaymentMethod("upi_qr")}
-                className={`py-3 px-3 rounded-xl border text-xs font-bold transition-all flex items-center justify-center gap-1.5 ${
-                  paymentMethod === "upi_qr"
-                    ? "bg-blue-600 border-blue-500 text-white shadow-md"
-                    : "bg-slate-900 border-slate-700 text-slate-400 hover:text-white"
-                }`}
-              >
-                <QrCode className="w-4 h-4" /> UPI QR Scan
-              </button>
-
-              <button
-                type="button"
-                onClick={() => setPaymentMethod("card")}
-                className={`py-3 px-3 rounded-xl border text-xs font-bold transition-all flex items-center justify-center gap-1.5 ${
-                  paymentMethod === "card"
-                    ? "bg-blue-600 border-blue-500 text-white shadow-md"
-                    : "bg-slate-900 border-slate-700 text-slate-400 hover:text-white"
-                }`}
-              >
-                <CreditCard className="w-4 h-4" /> Cards
-              </button>
-
-              <button
-                type="button"
-                onClick={() => setPaymentMethod("netbanking")}
-                className={`py-3 px-3 rounded-xl border text-xs font-bold transition-all flex items-center justify-center gap-1.5 ${
-                  paymentMethod === "netbanking"
-                    ? "bg-blue-600 border-blue-500 text-white shadow-md"
-                    : "bg-slate-900 border-slate-700 text-slate-400 hover:text-white"
-                }`}
-              >
-                <Building2 className="w-4 h-4" /> Net Banking
-              </button>
-            </div>
-
-            {/* Single Prominent Pay Button containing the calculated Amount */}
-            <button
-              onClick={handlePay}
-              disabled={isProcessing}
-              className="w-full py-4.5 px-6 rounded-2xl bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-700 hover:from-blue-500 hover:to-indigo-500 text-white font-black text-lg flex items-center justify-center gap-3 shadow-xl hover:shadow-2xl transition-all active:scale-98 disabled:opacity-50"
-            >
-              {isProcessing ? (
-                <div className="flex items-center gap-2 text-base font-bold">
-                  <RefreshCw className="w-5 h-5 animate-spin text-cyan-300" />
-                  Processing Payment...
-                </div>
-              ) : (
-                <>
-                  <CreditCard className="w-6 h-6 text-cyan-300" />
-                  Pay ₹{totalAmount.toLocaleString('en-IN')} INR
-                  <span className="text-xs font-normal text-blue-200 border-l border-blue-400/40 pl-3">
-                    {years} Year{years > 1 ? 's' : ''} Extension
+              {/* Step 2: Select Duration in Years */}
+              <div className="p-6 rounded-2xl bg-slate-900/60 border border-slate-700/80 space-y-4">
+                <div className="flex items-center justify-between">
+                  <label className="block text-xs font-bold text-slate-300 uppercase tracking-wider">
+                    2. Select Extension Duration (Years)
+                  </label>
+                  <span className="text-xs text-emerald-400 font-semibold flex items-center gap-1">
+                    <Percent className="w-3.5 h-3.5" /> Save up to 35%
                   </span>
-                  <ArrowRight className="w-5 h-5" />
-                </>
-              )}
-            </button>
-          </div>
+                </div>
 
-          {/* Footer Merchant SLA */}
-          <div className="pt-4 border-t border-slate-700/80 flex items-center justify-between text-[11px] text-slate-400">
-            <span className="flex items-center gap-1">
-              <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" /> Merchant: Arman Logical Systems (Sahin Arman)
-            </span>
-            <span>MCC Code: 7372</span>
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                  {durationOptions.map((opt) => {
+                    const isSelected = selectedDuration.years === opt.years;
+                    return (
+                      <div
+                        key={opt.years}
+                        onClick={() => setSelectedDuration(opt)}
+                        className={`p-4 rounded-xl border text-center cursor-pointer transition-all ${
+                          isSelected
+                            ? "bg-blue-950/80 border-blue-500 ring-2 ring-blue-500/40 shadow-lg"
+                            : "bg-slate-950 border-slate-700/80 hover:border-slate-600"
+                        }`}
+                      >
+                        <div className="text-[10px] text-slate-400 font-bold uppercase">{opt.tag}</div>
+                        <div className="text-2xl font-black text-white my-1.5">{opt.label}</div>
+                        <div className="text-xs text-cyan-300 font-bold">
+                          {opt.discount > 0 ? `${opt.discount}% OFF` : "Standard"}
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+
+            </div>
+
+            {/* Right Column: Payment Channels + Single Pay Button (5 cols) */}
+            <div className="lg:col-span-5 space-y-6">
+              
+              <div className="p-6 rounded-2xl bg-slate-900 border border-slate-700/90 shadow-xl space-y-6">
+                
+                {/* Step 3: Choose Payment Channel */}
+                <div>
+                  <label className="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-3">
+                    3. Select Payment Channel
+                  </label>
+
+                  <div className="grid grid-cols-2 gap-2">
+                    <button
+                      type="button"
+                      onClick={() => setPaymentMethod("gpay")}
+                      className={`py-3 px-3 rounded-xl border text-xs font-bold transition-all flex items-center justify-center gap-1.5 ${
+                        paymentMethod === "gpay"
+                          ? "bg-blue-600 border-blue-500 text-white shadow-md"
+                          : "bg-slate-950 border-slate-700 text-slate-400 hover:text-white"
+                      }`}
+                    >
+                      <CreditCard className="w-4 h-4" /> Google Pay
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={() => setPaymentMethod("upi_qr")}
+                      className={`py-3 px-3 rounded-xl border text-xs font-bold transition-all flex items-center justify-center gap-1.5 ${
+                        paymentMethod === "upi_qr"
+                          ? "bg-blue-600 border-blue-500 text-white shadow-md"
+                          : "bg-slate-950 border-slate-700 text-slate-400 hover:text-white"
+                      }`}
+                    >
+                      <QrCode className="w-4 h-4" /> UPI QR Scan
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={() => setPaymentMethod("card")}
+                      className={`py-3 px-3 rounded-xl border text-xs font-bold transition-all flex items-center justify-center gap-1.5 ${
+                        paymentMethod === "card"
+                          ? "bg-blue-600 border-blue-500 text-white shadow-md"
+                          : "bg-slate-950 border-slate-700 text-slate-400 hover:text-white"
+                      }`}
+                    >
+                      <CreditCard className="w-4 h-4" /> Cards
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={() => setPaymentMethod("netbanking")}
+                      className={`py-3 px-3 rounded-xl border text-xs font-bold transition-all flex items-center justify-center gap-1.5 ${
+                        paymentMethod === "netbanking"
+                          ? "bg-blue-600 border-blue-500 text-white shadow-md"
+                          : "bg-slate-950 border-slate-700 text-slate-400 hover:text-white"
+                      }`}
+                    >
+                      <Building2 className="w-4 h-4" /> Net Banking
+                    </button>
+                  </div>
+                </div>
+
+                {/* Channel Helper Details */}
+                <div className="p-3.5 rounded-xl bg-slate-950 border border-slate-800 text-xs text-slate-300 space-y-1.5">
+                  <div className="font-bold text-white flex items-center justify-between">
+                    <span>
+                      {paymentMethod === 'gpay' ? 'Google Pay (GPay) API' : paymentMethod === 'upi_qr' ? 'UPI VPA Payment' : paymentMethod === 'card' ? 'Credit / Debit Card' : 'Net Banking Gateway'}
+                    </span>
+                    <span className="text-emerald-400 text-[10px] font-mono">Instant Renewal</span>
+                  </div>
+                  {paymentMethod === 'upi_qr' && (
+                    <div className="flex items-center justify-between pt-1">
+                      <span className="font-mono text-slate-400">sahin401099@okicici</span>
+                      <button
+                        type="button"
+                        onClick={handleCopyVpa}
+                        className="px-2 py-0.5 rounded bg-blue-600/30 text-blue-300 text-[10px] font-bold"
+                      >
+                        {copiedVpa ? "Copied!" : "Copy VPA"}
+                      </button>
+                    </div>
+                  )}
+                  <p className="text-[11px] text-slate-400">
+                    New Extended Expiry Date: <strong className="text-cyan-300">{getNewExpiryDate()}</strong>
+                  </p>
+                </div>
+
+                {/* Single Prominent Widescreen Pay Button containing the Amount ONLY */}
+                <button
+                  onClick={handlePay}
+                  disabled={isProcessing}
+                  className="w-full py-4.5 px-6 rounded-xl bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-700 hover:from-blue-500 hover:to-indigo-500 text-white font-black text-lg sm:text-xl flex items-center justify-center gap-3 shadow-xl hover:shadow-2xl transition-all active:scale-98 disabled:opacity-50"
+                >
+                  {isProcessing ? (
+                    <div className="flex items-center gap-2 text-base font-bold">
+                      <RefreshCw className="w-5 h-5 animate-spin text-cyan-300" />
+                      Processing Payment...
+                    </div>
+                  ) : (
+                    <>
+                      <CreditCard className="w-6 h-6 text-cyan-300" />
+                      Pay ₹{totalAmount.toLocaleString('en-IN')} INR
+                      <span className="text-xs font-semibold text-blue-200 border-l border-blue-400/40 pl-3">
+                        {years} Yr Extension
+                      </span>
+                      <ArrowRight className="w-5 h-5" />
+                    </>
+                  )}
+                </button>
+
+                <div className="pt-2 text-[11px] text-slate-400 text-center">
+                  Includes 18% GST • Computer Generated Single A4 Tax Invoice
+                </div>
+
+              </div>
+
+            </div>
+
           </div>
 
         </div>
