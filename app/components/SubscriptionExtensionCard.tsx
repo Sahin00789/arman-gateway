@@ -324,14 +324,14 @@ export default function SubscriptionExtensionCard() {
                   1. Enter Product ID / License Key
                 </label>
 
-                <div className="flex gap-2">
+                <div className="flex flex-col sm:flex-row gap-2.5">
                   <div className="relative flex-grow">
                     <input
                       type="text"
                       value={productId}
                       onChange={(e) => setProductId(e.target.value)}
                       placeholder="e.g. SCH-2026-884"
-                      className="w-full pl-4 pr-10 py-3.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white font-mono font-bold text-base uppercase focus:border-blue-500 focus:outline-hidden"
+                      className="w-full pl-4 pr-10 py-3.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white font-mono font-bold text-sm sm:text-base uppercase focus:border-blue-500 focus:outline-hidden"
                     />
                     {isSearching && (
                       <RefreshCw className="w-5 h-5 text-blue-600 dark:text-blue-400 animate-spin absolute right-3.5 top-4" />
@@ -340,7 +340,7 @@ export default function SubscriptionExtensionCard() {
                   <button
                     type="button"
                     onClick={() => handleFetchProduct()}
-                    className="px-6 py-3.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm transition-all shrink-0 flex items-center gap-2 shadow-md cursor-pointer"
+                    className="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm transition-all shrink-0 flex items-center justify-center gap-2 shadow-md cursor-pointer"
                   >
                     <Search className="w-4 h-4" /> Fetch Product
                   </button>

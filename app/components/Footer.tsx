@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
+import Logo from "./Logo";
 import { Mail, Phone, Globe, Lock, ExternalLink } from "lucide-react";
 
 export default function Footer() {
@@ -15,14 +15,8 @@ export default function Footer() {
           {/* Column 1: Business Identity */}
           <div className="md:col-span-1 space-y-4">
             <div className="flex items-center gap-3">
-              <div className="relative h-9 w-9 brightness-0 invert opacity-90">
-                <Image 
-                  src="/Applogo.png" 
-                  alt="Arman Logical Systems Logo" 
-                  fill
-                  className="object-contain"
-                  sizes="36px"
-                />
+              <div className="w-9 h-9">
+                <Logo variant="mark" className="w-full h-full" />
               </div>
               <span className="text-xl font-bold tracking-tight text-white">
                 Arman Logical Systems
@@ -142,13 +136,13 @@ export default function Footer() {
         </div>
 
         {/* Bottom Bar with payment logos & copyright */}
-        <div className="border-t border-slate-800/80 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-slate-500">
+        <div className="border-t border-slate-800/80 pt-8 flex flex-col md:flex-row justify-between items-center text-center md:text-left gap-4 text-xs text-slate-500">
           <div>
             © {new Date().getFullYear()} Arman Logical Systems. All rights reserved. Registered under MCC 7372 (Software Services & Web Design).
           </div>
-          <div className="flex items-center gap-4">
-            <span className="flex items-center gap-1 text-slate-400">
-              <Lock className="w-3.5 h-3.5 text-emerald-400" /> Google Pay • UPI • Cards • Net Banking
+          <div className="flex items-center gap-4 shrink-0">
+            <span className="flex items-center gap-1.5 text-slate-400 font-medium text-[11px] sm:text-xs">
+              <Lock className="w-3.5 h-3.5 text-emerald-400 shrink-0" /> Google Pay • UPI • Cards • Net Banking
             </span>
           </div>
         </div>

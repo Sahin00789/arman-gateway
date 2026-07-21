@@ -17,6 +17,7 @@ import {
 import Link from "next/link";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import Logo from "./components/Logo";
 
 // Premium Typography
 const jakarta = Plus_Jakarta_Sans({ 
@@ -101,36 +102,42 @@ export default function Gateway() {
   return (
     <main className={`min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 ${jakarta.variable} font-sans flex flex-col relative overflow-hidden transition-colors duration-300`}>
       
-      {/* Ambient Background Glows */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[500px] bg-gradient-to-b from-blue-500/10 dark:from-blue-600/15 via-cyan-500/10 to-transparent rounded-full blur-3xl pointer-events-none"></div>
+      {/* Subtle Architectural Grid Pattern */}
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:32px_32px] pointer-events-none"></div>
 
-      {/* Centered Navbar with Dark/Light Toggle */}
+      {/* Dynamic Ambient Background Glow Orbs */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[550px] bg-gradient-to-b from-blue-500/15 via-cyan-500/10 dark:from-blue-600/20 dark:via-cyan-400/10 to-transparent rounded-full blur-3xl pointer-events-none"></div>
+
+      {/* Responsive Navigation Bar */}
       <Navbar />
 
-      {/* Hero Section */}
-      <section className="relative w-full max-w-5xl mx-auto px-4 sm:px-6 pt-20 pb-16 text-center z-10 flex-grow">
+      {/* Modern High-Impact Hero Section */}
+      <section className="relative w-full max-w-5xl mx-auto px-4 sm:px-6 pt-16 sm:pt-24 pb-16 text-center z-10 flex-grow">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7 }}
-          className="space-y-6"
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="space-y-8"
         >
-          {/* Status Pill */}
-          <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-blue-500/30 text-slate-800 dark:text-slate-200 text-xs sm:text-sm font-semibold shadow-xs dark:shadow-blue-500/5 backdrop-blur-md">
-            <span className="relative flex h-2.5 w-2.5">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-blue-600 dark:bg-cyan-400"></span>
-            </span>
-            <span>Arman Gateway Ecosystem</span>
-            <span className="text-slate-400 dark:text-slate-600">•</span>
-            <span className="text-emerald-600 dark:text-emerald-400 font-bold flex items-center gap-1">
-              All Systems Operational
-            </span>
+          {/* Logo Mark Hero Spotlight Badge */}
+          <div className="inline-flex items-center gap-3 p-2 sm:p-2.5 px-4 rounded-full bg-white/90 dark:bg-slate-900/90 border border-slate-200/80 dark:border-slate-800 shadow-xl backdrop-blur-xl hover:scale-105 transition-transform duration-300">
+            <div className="w-8 h-8 p-1 rounded-xl bg-gradient-to-br from-blue-50 to-cyan-50 dark:from-slate-800 dark:to-slate-900 border border-blue-200 dark:border-slate-700 flex items-center justify-center shrink-0">
+              <Logo variant="mark" className="w-full h-full" />
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="text-xs sm:text-sm font-extrabold text-slate-900 dark:text-white">
+                Arman Logical Systems
+              </span>
+              <span className="text-slate-300 dark:text-slate-700">•</span>
+              <span className="text-xs sm:text-sm font-bold text-blue-600 dark:text-cyan-400">
+                SaaS Gateway
+              </span>
+            </div>
           </div>
 
-          {/* Headline */}
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black tracking-tight text-slate-900 dark:text-white leading-[1.1]">
-            Select your platform <br className="hidden md:block" />
+          {/* Main Headline */}
+          <h1 className="text-4xl sm:text-6xl md:text-7xl font-black tracking-tight text-slate-900 dark:text-white leading-[1.12] max-w-4xl mx-auto">
+            Select your platform <br className="hidden sm:block" />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-700 via-indigo-600 to-cyan-600 dark:from-blue-400 dark:via-cyan-300 dark:to-emerald-400">
               to access your dashboard.
             </span>
@@ -138,18 +145,38 @@ export default function Gateway() {
 
           {/* Subtitle */}
           <p className="text-slate-600 dark:text-slate-400 text-base sm:text-lg md:text-xl max-w-2xl mx-auto font-medium leading-relaxed">
-            Arman Logical Systems delivers enterprise software, localized ERPs, and custom web applications for schools, restaurants, clinics, and retail platforms.
+            Enterprise software, localized ERPs, and digital operating infrastructure for schools, clinics, restaurants, and retail marketplaces.
           </p>
+
+          {/* Dual Action Buttons */}
+          <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-4 max-w-md mx-auto">
+            <a
+              href="#platforms"
+              className="w-full sm:w-auto px-8 py-4 rounded-2xl bg-blue-600 hover:bg-blue-500 text-white font-black text-sm sm:text-base flex items-center justify-center gap-2.5 shadow-xl hover:shadow-2xl transition-all duration-200 active:scale-98 cursor-pointer"
+            >
+              <span>Explore Applications</span>
+              <ArrowRight className="w-5 h-5" />
+            </a>
+
+            <Link
+              href="/pay"
+              className="w-full sm:w-auto px-8 py-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-slate-100 hover:border-blue-500 dark:hover:border-cyan-400 font-bold text-sm sm:text-base flex items-center justify-center gap-2.5 shadow-md transition-all duration-200 active:scale-98"
+            >
+              <CreditCard className="w-5 h-5 text-blue-600 dark:text-cyan-400" />
+              <span>Extend License</span>
+            </Link>
+          </div>
+
         </motion.div>
       </section>
 
       {/* Ecosystem SaaS Product Cards Grid */}
-      <section className="w-full max-w-6xl mx-auto px-4 sm:px-6 pb-20 z-10">
+      <section id="platforms" className="w-full max-w-6xl mx-auto px-4 sm:px-6 pb-20 z-10">
         <motion.div 
           variants={staggerContainer}
           initial="hidden"
           animate="show"
-          className="grid grid-cols-1 md:grid-cols-2 gap-8"
+          className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8"
         >
           {apps.map((app) => (
             <Link href={`https://${app.domain}`} key={app.id} passHref>
@@ -157,38 +184,38 @@ export default function Gateway() {
                 variants={fadeUp}
                 whileHover={{ y: -8, scale: 1.01 }}
                 whileTap={{ scale: 0.98 }}
-                className={`group relative rounded-3xl p-7 bg-white dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800/90 shadow-lg dark:shadow-xl backdrop-blur-xl transition-all duration-300 cursor-pointer h-full flex flex-col justify-between overflow-hidden ${app.hoverBorder}`}
+                className={`group relative rounded-3xl p-5 sm:p-7 bg-white dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800/90 shadow-lg dark:shadow-xl backdrop-blur-xl transition-all duration-300 cursor-pointer h-full flex flex-col justify-between overflow-hidden ${app.hoverBorder}`}
               >
                 {/* Background Glow */}
                 <div className={`absolute top-0 right-0 w-64 h-64 bg-gradient-to-b ${app.glowColor} rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none`}></div>
 
                 <div>
-                  <div className="flex items-start justify-between mb-6 relative z-10">
-                    <div className="flex items-center gap-4">
-                      <div className="w-16 h-16 rounded-2xl bg-slate-50 dark:bg-slate-950/90 border border-slate-200 dark:border-slate-800 flex items-center justify-center shadow-xs dark:shadow-inner group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300">
+                  <div className="flex items-start justify-between mb-5 sm:mb-6 relative z-10 gap-3">
+                    <div className="flex items-center gap-3 sm:gap-4 min-w-0">
+                      <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-2xl bg-slate-50 dark:bg-slate-950/90 border border-slate-200 dark:border-slate-800 flex items-center justify-center shadow-xs dark:shadow-inner shrink-0 group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300">
                         {app.icon}
                       </div>
-                      <div>
-                        <span className={`text-[10px] font-extrabold uppercase px-2.5 py-0.5 rounded-full border ${app.badgeBg}`}>
+                      <div className="min-w-0">
+                        <span className={`text-[10px] font-extrabold uppercase px-2.5 py-0.5 rounded-full border inline-block truncate max-w-full ${app.badgeBg}`}>
                           {app.tagline}
                         </span>
-                        <h2 className="text-2xl font-black text-slate-900 dark:text-white tracking-tight mt-1 group-hover:text-blue-600 dark:group-hover:text-cyan-300 transition-colors">
+                        <h2 className="text-xl sm:text-2xl font-black text-slate-900 dark:text-white tracking-tight mt-1 group-hover:text-blue-600 dark:group-hover:text-cyan-300 transition-colors truncate">
                           {app.title}
                         </h2>
                       </div>
                     </div>
 
-                    <div className="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700/80 flex items-center justify-center text-slate-500 dark:text-slate-400 group-hover:text-white group-hover:bg-blue-600 transition-all">
+                    <div className="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700/80 flex items-center justify-center text-slate-500 dark:text-slate-400 group-hover:text-white group-hover:bg-blue-600 transition-all shrink-0">
                       <ExternalLink className="w-4 h-4" />
                     </div>
                   </div>
 
-                  <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-xl bg-slate-100 dark:bg-slate-950/80 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 text-xs font-mono mb-5">
-                    <Globe className="w-3.5 h-3.5 text-blue-600 dark:text-cyan-400" />
-                    {app.domain}
+                  <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-xl bg-slate-100 dark:bg-slate-950/80 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 text-xs font-mono mb-4 sm:mb-5 max-w-full truncate">
+                    <Globe className="w-3.5 h-3.5 text-blue-600 dark:text-cyan-400 shrink-0" />
+                    <span className="truncate">{app.domain}</span>
                   </div>
 
-                  <p className="text-slate-600 dark:text-slate-300 text-sm leading-relaxed mb-6 font-medium relative z-10">
+                  <p className="text-slate-600 dark:text-slate-300 text-xs sm:text-sm leading-relaxed mb-6 font-medium relative z-10">
                     {app.description}
                   </p>
                 </div>
@@ -203,9 +230,9 @@ export default function Gateway() {
                     ))}
                   </ul>
 
-                  <div className="flex items-center justify-between w-full font-bold text-sm text-slate-600 dark:text-slate-300 group-hover:text-slate-900 dark:group-hover:text-white transition-colors duration-300">
+                  <div className="flex items-center justify-between w-full font-bold text-xs sm:text-sm text-slate-600 dark:text-slate-300 group-hover:text-slate-900 dark:group-hover:text-white transition-colors duration-300">
                     <span>{app.buttonText}</span>
-                    <div className="w-10 h-10 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center group-hover:bg-blue-600 group-hover:border-blue-500 group-hover:text-white transition-all duration-300 shadow-xs">
+                    <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center group-hover:bg-blue-600 group-hover:border-blue-500 group-hover:text-white transition-all duration-300 shadow-xs shrink-0">
                       <ArrowRight size={18} className="transition-transform group-hover:-rotate-45" />
                     </div>
                   </div>
@@ -223,18 +250,18 @@ export default function Gateway() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="p-8 sm:p-12 rounded-3xl bg-gradient-to-r from-slate-900 via-blue-950 to-slate-900 text-white shadow-2xl relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-8 backdrop-blur-xl border border-slate-800"
+          className="p-6 sm:p-10 md:p-12 rounded-3xl bg-gradient-to-r from-slate-900 via-blue-950 to-slate-900 text-white shadow-2xl relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-6 sm:gap-8 backdrop-blur-xl border border-slate-800"
         >
           <div className="space-y-3 text-center md:text-left relative z-10 max-w-2xl">
             <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-blue-500/20 text-cyan-300 text-xs font-extrabold border border-blue-500/30">
               <Calendar className="w-3.5 h-3.5" /> License Extension Hub
             </div>
             
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-white tracking-tight">
+            <h2 className="text-xl sm:text-3xl lg:text-4xl font-black text-white tracking-tight">
               Extend Your SaaS Subscription
             </h2>
 
-            <p className="text-slate-300 text-sm sm:text-base leading-relaxed font-medium">
+            <p className="text-slate-300 text-xs sm:text-base leading-relaxed font-medium">
               Have an existing product license for Schoolahive, DineServe, ClinicMind, or LocalHub? Fetch your current expiry date and extend your annual subscription for 1 to 5 years.
             </p>
           </div>
@@ -242,11 +269,11 @@ export default function Gateway() {
           <div className="relative z-10 shrink-0 w-full md:w-auto">
             <Link
               href="/pay"
-              className="w-full md:w-auto px-8 py-4.5 rounded-2xl bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-700 hover:from-blue-500 hover:to-indigo-500 text-white font-black text-base flex items-center justify-center gap-3 shadow-xl hover:shadow-2xl transition-all duration-200 active:scale-98"
+              className="w-full md:w-auto px-6 sm:px-8 py-3.5 sm:py-4.5 rounded-2xl bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-700 hover:from-blue-500 hover:to-indigo-500 text-white font-black text-sm sm:text-base flex items-center justify-center gap-2.5 shadow-xl hover:shadow-2xl transition-all duration-200 active:scale-98"
             >
-              <CreditCard className="w-5 h-5 text-cyan-300" />
-              Extend SaaS Subscription
-              <ArrowRight className="w-5 h-5" />
+              <CreditCard className="w-5 h-5 text-cyan-300 shrink-0" />
+              <span>Extend SaaS Subscription</span>
+              <ArrowRight className="w-5 h-5 shrink-0" />
             </Link>
           </div>
         </motion.div>
